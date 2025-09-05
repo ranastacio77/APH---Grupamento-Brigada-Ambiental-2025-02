@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz PHTLS - APH Iniciante</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 20px; 
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    h1 { 
+      color: #006699; 
+      text-align: center;
+      margin-bottom: 20px; /* Ajuste para dar espaço ao timer */
+    }
+    #timerContainer {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #006699;
+    }
+    #timerContainer.time-critical {
+        color: red;
+        animation: pulse 1s infinite alternate; /* Efeito de pulsação para o tempo acabando */
+    }
+    @keyframes pulse {
+        from { transform: scale(1); }
+        to { transform: scale(1.05); }
+    }
+    .question { 
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .question p {
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #0056b3;
+    }
+    .question label {
+      display: block;
+      margin-bottom: 10px;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .question label:hover {
+      background-color: #e9e9e9;
+    }
+    .question input[type="radio"] {
+      margin-right: 10px;
+    }
+    .correct { 
+      color: green; 
+      font-weight: bold;
+    }
+    .incorrect { 
+      color: red; 
+      font-weight: bold;
+    }
+    .feedback-item { 
+      margin-bottom: 15px;
+      border-bottom: 1px dashed #eee;
+      padding-bottom: 10px;
+    }
+    .feedback-item:last-child {
+      border-bottom: none;
+    }
+    .feedback-item p {
+      margin: 5px 0;
+      padding-left: 20px; /* Indentation for feedback text */
+    }
+    #results { 
+      margin-top: 40px; 
+      padding: 25px; 
+      border-top: 2px solid #ccc; 
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    #results h2 {
+      color: #006699;
+      margin-bottom: 20px;
+    }
+    #results h3 {
+      text-align: center;
+      margin-top: 20px;
+      color: #0056b3;
+    }
+    .button-group {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 20px; /* Espaço antes da próxima seção */
+    }
+    .button-group button { 
+      margin: 0 10px; /* Space between buttons */
+      padding: 12px 25px; 
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+    }
+    .button-group button:hover {
+      background-color: #0056b3;
+    }
+    .button-group button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+    }
+
+    #pastResultsContainer {
+      margin-top: 50px;
+      padding: 25px;
+      border-top: 2px solid #006699;
+      background-color: #e9f5ff; /* Um fundo azul claro para diferenciar */
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    #pastResultsContainer h2 {
+      color: #006699;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    #pastResultsList {
+      list-style-type: none;
+      padding: 0;
+    }
+    #pastResultsList li {
+      background-color: #fff;
+      border: 1px solid #cceeff;
+      border-radius: 5px;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #pastResultsList li span {
+        font-weight: bold;
+        color: #333;
+    }
+    #pastResultsList li .date-time {
+        font-size: 0.9em;
+        color: #666;
+    }
+    #clearResultsBtn {
+        margin-top: 20px;
+        background-color: #dc3545; /* Botão vermelho para limpar */
+    }
+    #clearResultsBtn:hover {
+        background-color: #c82333;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Quiz PHTLS - Turma Iniciante</h1>
+  <div id="timerContainer">
+    Tempo Restante: <span id="timerDisplay"></span>
+  </div>
+  <form id="quizForm">
+    <!-- Questões (mantidas as mesmas do código anterior) -->
+    <div class="question">
+      <p>1. Qual é o objetivo principal do socorrista no atendimento pré-hospitalar?</p>
+      <label><input type="radio" name="q1" value="0"> Garantir transporte rápido sem avaliação</label><br>
+      <label><input type="radio" name="q1" value="1"> Realizar procedimentos cirúrgicos no local</label><br>
+      <label><input type="radio" name="q1" value="2"> Promover atendimento baseado em evidências para salvar vidas</label><br>
+      <label><input type="radio" name="q1" value="3"> Substituir o atendimento hospitalar</label>
+    </div>
+
+    <div class="question">
+      <p>2. Qual é a primeira etapa do atendimento em uma cena de trauma?</p>
+      <label><input type="radio" name="q2" value="0"> Controle de hemorragias</label><br>
+      <label><input type="radio" name="q2" value="1"> Segurança da cena</label><br>
+      <label><input type="radio" name="q2" value="2"> Verificação de sinais vitais</label><br>
+      <label><input type="radio" name="q2" value="3"> Avaliação primária</label>
+    </div>
+
+    <div class="question">
+      <p>3. Durante a avaliação primária, qual é a prioridade após garantir a segurança da cena?</p>
+      <label><input type="radio" name="q3" value="0"> Estabilizar fraturas</label><br>
+      <label><input type="radio" name="q3" value="1"> Aplicar curativos</label><br>
+      <label><input type="radio" name="q3" value="2"> Avaliar a circulação</label><br>
+      <label><input type="radio" name="q3" value="3"> Verificar a responsividade do paciente</label>
+    </div>
+
+    <div class="question">
+      <p>4. O que significa a sigla XABCDE na avaliação primária?</p>
+      <label><input type="radio" name="q4" value="0"> Acesso venoso, Balanço hídrico, Controle de dor, Diagnóstico, Exames</label><br>
+      <label><input type="radio" name="q4" value="1"> Avaliação, Balanço, Controle, Diagnóstico, Exposição</label><br>
+      <label><input type="radio" name="q4" value="2"> Abertura de vias aéreas, Batimentos cardíacos, Circulação, Diagnóstico, Exames</label><br>
+      <label><input type="radio" name="q4" value="3"> Exsanguinação, Vias Aéreas, Respiração, Circulação, Déficit neurológico, Exposição</label>
+    </div>
+
+    <div class="question">
+      <p>5. Qual é a prioridade no controle de hemorragias externas graves?</p>
+      <label><input type="radio" name="q5" value="0"> Utilizar torniquete se necessário</label><br>
+      <label><input type="radio" name="q5" value="1"> Realizar sutura no local</label><br>
+      <label><input type="radio" name="q5" value="2"> Administrar analgésicos</label><br>
+      <label><input type="radio" name="q5" value="3"> Aplicar compressas frias</label>
+    </div>
+
+    <div class="question">
+      <p>6. Qual é o tempo ideal para realizar a avaliação primária completa segundo o PHTLS?</p>
+      <label><input type="radio" name="q6" value="0"> Menos de 1 minuto</label><br>
+      <label><input type="radio" name="q6" value="1"> Mais de 10 minutos</label><br>
+      <label><input type="radio" name="q6" value="2"> Entre 1 e 2 minutos</label><br>
+      <label><input type="radio" name="q6" value="3"> Até 5 minutos</label>
+    </div>
+
+    <div class="question">
+      <p>7. Em caso de trauma torácico com dificuldade respiratória, qual intervenção pode ser necessária no APH?</p>
+      <label><input type="radio" name="q7" value="0"> Administração de antibióticos</label><br>
+      <label><input type="radio" name="q7" value="1"> Punção de alívio para pneumotórax hipertensivo</label><br>
+      <label><input type="radio" name="q7" value="2"> Aplicação de calor local</label><br>
+      <label><input type="radio" name="q7" value="3"> Imobilização cervical</label>
+    </div>
+
+    <div class="question">
+      <p>8. Qual é a posição ideal para um paciente inconsciente com respiração espontânea e sem suspeita de trauma?</p>
+      <label><input type="radio" name="q8" value="0"> De pé</label><br>
+      <label><input type="radio" name="q8" value="1"> Sentado</label><br>
+      <label><input type="radio" name="q8" value="2"> Posição de recuperação (lateral)</label><br>
+      <label><input type="radio" name="q8" value="3"> Decúbito dorsal</label>
+    </div>
+
+    <div class="question">
+      <p>9. Qual é o principal sinal de choque hipovolêmico em um paciente traumatizado?</p>
+      <label><input type="radio" name="q9" value="0"> Bradicardia</label><br>
+      <label><input type="radio" name="q9" value="1"> Febre alta</label><br>
+      <label><input type="radio" name="q9" value="2"> Hipertensão arterial</label><br>
+      <label><input type="radio" name="q9" value="3"> Pele fria e úmida</label>
+    </div>
+
+    <div class="question">
+      <p>10. Qual é a função da cânula orofaríngea no atendimento pré-hospitalar?</p>
+      <label><input type="radio" name="q10" value="0"> Promover ventilação mecânica</label><br>
+      <label><input type="radio" name="q10" value="1"> Evitar obstrução das vias aéreas por língua</label><br>
+      <label><input type="radio" name="q10" value="2"> Controlar hemorragias internas</label><br>
+      <label><input type="radio" name="q10" value="3"> Administrar medicamentos</label>
+    </div>
+
+    <div class="question">
+      <p>11. Qual é a técnica correta para abertura das vias aéreas em paciente com suspeita de trauma cervical?</p>
+      <label><input type="radio" name="q11" value="0"> Manobra de tração mandibular</label><br>
+      <label><input type="radio" name="q11" value="1"> Extensão cervical</label><br>
+      <label><input type="radio" name="q11" value="2"> Compressão torácica</label><br>
+      <label><input type="radio" name="q11" value="3"> Inclinação da cabeça e elevação do queixo</label>
+    </div>
+
+    <div class="question">
+      <p>12. Qual é o dispositivo mais indicado para ventilação em paciente com parada respiratória no APH?</p>
+      <label><input type="radio" name="q12" value="0"> Máscara de oxigênio simples</label><br>
+      <label><input type="radio" name="q12" value="1"> Cânula nasal</label><br>
+      <label><input type="radio" name="q12" value="2"> Bolsa-valva-máscara (BVM - Ambú)</label><br>
+      <label><input type="radio" name="q12" value="3"> Ventilador Mecânico</label>
+    </div>
+
+    <div class="button-group">
+        <button type="button" id="corrigirBtn" onclick="corrigirQuiz()">Corrigir</button>
+        <button type="button" id="reiniciarBtn" onclick="reiniciarQuiz()">Reiniciar Quiz</button>
+    </div>
+  </form>
+
+  <div id="results"></div>
+
+  <div id="pastResultsContainer">
+    <h2>Resultados Anteriores</h2>
+    <ul id="pastResultsList">
+      <!-- Resultados anteriores serão carregados aqui -->
+    </ul>
+    <div class="button-group">
+        <button type="button" id="clearResultsBtn" onclick="clearPastResults()">Limpar Resultados Anteriores</button>
+    </div>
+  </div>
+
+  <script>
+    const gabarito = {
+      q1: { correta: "2", justificativa: "O objetivo é salvar vidas com atendimento baseado em evidências, não transporte rápido ou procedimentos cirúrgicos." },
+      q2: { correta: "1", justificativa: "A segurança da cena é a primeira etapa para proteger o socorrista e permitir atendimento seguro." },
+      q3: { correta: "3", justificativa: "Após garantir a cena, verifica-se a responsividade para iniciar o protocolo XABCDE." },
+      q4: { correta: "3", justificativa: "XABCDE: eXsanguinação, Vias Aéreas, Respiração, Circulação, Déficit Neurológico, Exposição. A opção 3 agora reflete o 'X'." },
+      q5: { correta: "0", justificativa: "Torniquete é indicado para hemorragias externas graves, conforme diretrizes atualizadas do PHTLS." },
+      q6: { correta: "0", justificativa: "A avaliação primária deve ser rápida, idealmente em menos de 1 minuto." },
+      q7: { correta: "1", justificativa: "Punção de alívio é indicada para pneumotórax hipertensivo, uma emergência respiratória no trauma torácico." },
+      q8: { correta: "2", justificativa: "A posição lateral mantém vias aéreas desobstruídas em pacientes inconscientes sem suspeita de trauma." },
+      q9: { correta: "3", justificativa: "Pele fria e úmida é um sinal clássico de choque hipovolêmico, indicando má perfusão periférica." },
+      q10: { correta: "1", justificativa: "A cânula orofaríngea evita obstrução das vias aéreas por queda da língua em pacientes inconscientes." },
+      q11: { correta: "0", justificativa: "A manobra de tração mandibular permite abertura das vias aéreas sem movimentar a coluna cervical." },
+      q12: { correta: "2", justificativa: "O BVM (bolsa-valva-máscara) é o dispositivo padrão para ventilação em parada respiratória no APH." }
+    };
+
+    const timeLimitInSeconds = 300; // Tempo limite: 5 minutos (5 * 60 segundos)
+    let timeLeft = timeLimitInSeconds;
+    let timerInterval;
+    const timerDisplay = document.getElementById('timerDisplay');
+    const timerContainer = document.getElementById('timerContainer');
+    const pastResultsList = document.getElementById('pastResultsList');
+
+    // Função para formatar o tempo em MM:SS
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = seconds % 60;
+      return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+    }
+
+    // Função para iniciar o contador de tempo
+    function startTimer() {
+      timerDisplay.textContent = formatTime(timeLeft); // Exibição inicial
+
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = formatTime(timeLeft);
+
+        // Adiciona classe para alertar que o tempo está acabando (ex: últimos 30 segundos)
+        if (timeLeft <= 30 && !timerContainer.classList.contains('time-critical')) {
+            timerContainer.classList.add('time-critical');
+        } else if (timeLeft > 30 && timerContainer.classList.contains('time-critical')) {
+            timerContainer.classList.remove('time-critical');
+        }
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          timerDisplay.textContent = "00:00 - Tempo Esgotado!";
+          // Desabilita os radio buttons para não permitir mais respostas
+          const radioButtons = document.querySelectorAll('#quizForm input[type="radio"]');
+          radioButtons.forEach(radio => radio.disabled = true);
+          // Corrige o quiz automaticamente
+          corrigirQuiz();
+        }
+      }, 1000); // Atualiza a cada segundo
+    }
+
+    // Função para carregar e exibir resultados anteriores do localStorage
+    function loadPastResults() {
+        pastResultsList.innerHTML = ''; // Limpa a lista existente
+        const storedResults = JSON.parse(localStorage.getItem('quizResults')) || [];
+
+        if (storedResults.length === 0) {
+            pastResultsList.innerHTML = '<li>Nenhum resultado anterior encontrado.</li>';
+            document.getElementById('clearResultsBtn').disabled = true; // Desabilita o botão de limpar se não houver resultados
+        } else {
+            storedResults.forEach((result, index) => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<span>Quiz #${index + 1}: ${result.score} de 12 acertos</span> <span class="date-time">${new Date(result.timestamp).toLocaleString()}</span>`;
+                pastResultsList.appendChild(listItem);
+            });
+            document.getElementById('clearResultsBtn').disabled = false; // Habilita o botão de limpar
+        }
+    }
+
+    // Função para limpar os resultados anteriores
+    function clearPastResults() {
+        if (confirm('Tem certeza que deseja limpar todos os resultados anteriores?')) {
+            localStorage.removeItem('quizResults');
+            loadPastResults(); // Recarrega a lista para mostrar que está vazia
+        }
+    }
+
+    // Inicia o contador e carrega resultados quando a página é completamente carregada
+    window.onload = function() {
+        startTimer();
+        loadPastResults();
+    };
+
+    function corrigirQuiz() {
+      // Interrompe o contador quando o quiz é corrigido manualmente
+      clearInterval(timerInterval);
+      timerContainer.classList.remove('time-critical'); // Remove qualquer estilo de alerta
+
+      const form = document.getElementById('quizForm');
+      const results = document.getElementById('results');
+      let score = 0;
+      let feedbackHTML = "<h2>Gabarito e Justificativas</h2>";
+
+      // Desabilita todos os radio buttons após a correção
+      const radioButtons = document.querySelectorAll('#quizForm input[type="radio"]');
+      radioButtons.forEach(radio => radio.disabled = true);
+
+      // Percorre todas as questões
+      for (let i = 1; i <= 12; i++) {
+        const qName = "q" + i;
+        const selectedOption = form.querySelector(`input[name="${qName}"]:checked`);
+        const resposta = selectedOption ? selectedOption.value : undefined;
+        
+        const correta = gabarito[qName].correta;
+        const justificativa = gabarito[qName].justificativa;
+
+        feedbackHTML += `<div class="feedback-item">`;
+        if (resposta === undefined) {
+          feedbackHTML += `<p><strong>Questão ${i}:</strong> <span class="incorrect">❌ Não respondida</span><br>`;
+          feedbackHTML += `A alternativa correta é a de valor <strong>${correta}</strong>.<br>${justificativa}</p>`;
+        } else if (resposta === correta) {
+          score++;
+          feedbackHTML += `<p><strong>Questão ${i}:</strong> <span class="correct">✅ Correta</span><br>`;
+          feedbackHTML += `${justificativa}</p>`;
+        } else {
+          feedbackHTML += `<p><strong>Questão ${i}:</strong> <span class="incorrect">❌ Incorreta</span><br>`;
+          feedbackHTML += `Você marcou a alternativa de valor <strong>${resposta}</strong>. Correta: valor <strong>${correta}</strong>.<br>${justificativa}</p>`;
+        }
+        feedbackHTML += `</div>`;
+      }
+
+      feedbackHTML += `<h3>Resultado Final: ${score} de 12 acertos</h3>`;
+      results.innerHTML = feedbackHTML;
+
+      document.getElementById('corrigirBtn').disabled = true;
+      document.getElementById('reiniciarBtn').disabled = false;
+
+      // --- Adição para Salvar Resultados ---
+      const quizResult = {
+          score: score,
+          timestamp: new Date().toISOString() // Salva a data e hora em formato ISO
+      };
+
+      // Recupera resultados existentes ou cria um array vazio
+      const storedResults = JSON.parse(localStorage.getItem('quizResults')) || [];
+      storedResults.push(quizResult); // Adiciona o novo resultado
+      localStorage.setItem('quizResults', JSON.stringify(storedResults)); // Salva de volta no localStorage
+
+      loadPastResults(); // Atualiza a exibição dos resultados anteriores
+      // --- Fim da Adição ---
+    }
+
+    function reiniciarQuiz() {
+      window.location.reload(); // Recarrega a página para reiniciar o quiz e o timer
+    }
+  </script>
+</body>
+</html>
