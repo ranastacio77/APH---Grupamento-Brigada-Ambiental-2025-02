@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz: Teoria de Enfermagem de Rosalda Paim no APH com CIPE</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 20px; 
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    h1 { 
+      color: #006699; 
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #timerContainer {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #006699;
+    }
+    #timerContainer.time-critical {
+        color: red;
+        animation: pulse 1s infinite alternate;
+    }
+    @keyframes pulse {
+        from { transform: scale(1); }
+        to { transform: scale(1.05); }
+    }
+    .question { 
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .question p {
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #0056b3;
+    }
+    .question label {
+      display: block;
+      margin-bottom: 10px;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .question label:hover {
+      background-color: #e9e9e9;
+    }
+    .question input[type="radio"] {
+      margin-right: 10px;
+    }
+    .correct { 
+      color: green; 
+      font-weight: bold;
+    }
+    .incorrect { 
+      color: red; 
+      font-weight: bold;
+    }
+    .feedback-item { 
+      margin-bottom: 15px;
+      border-bottom: 1px dashed #eee;
+      padding-bottom: 10px;
+    }
+    .feedback-item:last-child {
+      border-bottom: none;
+    }
+    .feedback-item p {
+      margin: 5px 0;
+      padding-left: 20px;
+    }
+    #results { 
+      margin-top: 40px; 
+      padding: 25px; 
+      border-top: 2px solid #ccc; 
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    #results h2 {
+      color: #006699;
+      margin-bottom: 20px;
+    }
+    #results h3 {
+      text-align: center;
+      margin-top: 20px;
+      color: #0056b3;
+    }
+    .button-group {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+    .button-group button { 
+      margin: 0 10px;
+      padding: 12px 25px; 
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+    }
+    .button-group button:hover {
+      background-color: #0056b3;
+    }
+    .button-group button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+    }
+
+    #pastResultsContainer {
+      margin-top: 50px;
+      padding: 25px;
+      border-top: 2px solid #006699;
+      background-color: #e9f5ff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    #pastResultsContainer h2 {
+      color: #006699;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    #pastResultsList {
+      list-style-type: none;
+      padding: 0;
+    }
+    #pastResultsList li {
+      background-color: #fff;
+      border: 1px solid #cceeff;
+      border-radius: 5px;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #pastResultsList li span {
+        font-weight: bold;
+        color: #333;
+    }
+    #pastResultsList li .date-time {
+        font-size: 0.9em;
+        color: #666;
+    }
+    #clearResultsBtn {
+        margin-top: 20px;
+        background-color: #dc3545;
+    }
+    #clearResultsBtn:hover {
+        background-color: #c82333;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Quiz: Teoria de Enfermagem de Rosalda Paim no APH com CIPE</h1>
+  <div id="timerContainer">
+    Tempo Restante: <span id="timerDisplay"></span>
+  </div>
+  <form id="quizForm">
+    <!-- Questões - PREENCHA AQUI SUAS 12 PERGUNTAS ESPECÍFICAS -->
+    <div class="question">
+      <p>1. [PLACEHOLDER] Qual o foco principal da Teoria de Enfermagem de Rosalda Paim, considerando sua aplicabilidade no APH?</p>
+      <label><input type="radio" name="q1" value="0"> [PLACEHOLDER] Opção A</label><br>
+      <label><input type="radio" name="q1" value="1"> [PLACEHOLDER] Opção B</label><br>
+      <label><input type="radio" name="q1" value="2"> [PLACEHOLDER] Opção C</label><br>
+      <label><input type="radio" name="q1" value="3"> [PLACEHOLDER] Opção D</label>
+    </div>
+
+    <div class="question">
+      <p>2. [PLACEHOLDER] Em um cenário de APH, como a CIPE contribui para a padronização das intervenções de enfermagem?</p>
+      <label><input type="radio" name="q2" value="0"> [PLACEHOLDER] Opção A</label><br>
+      <label><input type="radio" name="q2" value="1"> [PLACEHOLDER] Opção B</label><br>
+      <label><input type="radio" name="q2" value="2"> [PLACEHOLDER] Opção C</label><br>
+      <label><input type="radio" name="q2" value="3"> [PLACEHOLDER] Opção D</label>
+    </div>
+
+    <div class="question">
+      <p>3. [PLACEHOLDER] De acordo com a teoria de Rosalda Paim e a taxonomia CIPE, como um enfermeiro do APH deve formular um diagnóstico de enfermagem para um paciente politraumatizado?</p>
+      <label><input type="radio" name="q3" value="0"> [PLACEHOLDER] Opção A</label><br>
+      <label><input type="radio" name="q3" value="1"> [PLACEHOLDER] Opção B</label><br>
+      <label><input type="radio" name="q3" value="2"> [PLACEHOLDER] Opção C</label><br>
+      <label><input type="radio" name="q3" value="3"> [PLACEHOLDER] Opção D</label>
+    </div>
+
+    <div class="question">
+      <p>4. [PLACEHOLDER] Segundo a abordagem de Rosalda Paim, qual é a importância da avaliação holística do paciente para a condução de enfermagem no APH?</p>
+      <label><input type="radio" name="q4" value="0"> [PLACEHOLDER] Opção A</label><br>
+      <label><input type="radio" name="q4" value="1"> [PLACEHOLDER] Opção B</label><br>
+      <label><input type="radio" name="q4" value="2"> [PLACEHOLDER] Opção C</label><br>
+      <label><input type="radio" name="q4" value="3"> [PLACEHOLDER] Opção D</label>
+    </div>
+
+    <div class="question">
+      <p>5. [PLACEHOLDER] Um desfecho esperado na CIPE, aplicado em APH, pode ser a 'Redução da Dor'. Qual o papel da teoria de Paim em guiar a intervenção para esse desfecho?</p>
+      <label><input type="radio" name="q5" value="0"> [PLACEHOLDER] Opção A</label><br>
+      <label><input type="radio" name="q5" value="1"> [PLACEHOLDER] Opção B</label><br>
+      <label><input type="radio" name="q5" value="2"> [PLACEHOLDER] Opção C</label><br>
+      <label><input type="radio" name="q5" value="3"> [PLACEHOLDER] Opção D</label>
+    </div>
+
+    <div class="question">
+      <p>6. [PLACEHOLDER] Como a teoria de Rosalda Paim pode guiar a tomada de decisão ética do enfermeiro no APH, especialmente em situações de escassez de recursos?</p>
+      <label><input type="radio" name="q6" value="0"> [PLACEHOLDER] Opção A</label><br>
+      <label><input type="radio" name="q6" value="1"> [PLACEHOLDER] Opção B</label><br>
+      <label><input type="radio" name="q6" value="2"> [PLACEHOLDER] Opção C</label><br>
+      <label><input type="radio" name="q6" value="3"> [PLACEHOLDER] Opção D</label>
+    </div>
+
+    <div class="question">
+      <p>7. [PLACEHOLDER] A documentação de enfermagem em APH, utilizando a CIPE, deve ser:</p>
+      <label><input type="radio" name="q7" value="0"> [PLACEHOLDER] Opção A</label><br>
+      <label><input type="radio" name="q7" value="1"> [PLACEHOLDER] Opção B</label><br>
+      <label><input type="radio" name="q7" value="2"> [PLACEHOLDER] Opção C</label><br>
+      <label><input type="radio" name="q7" value="3"> [PLACEHOLDER] Opção D</label>
+    </div>
+
+    <div class="question">
+      <p>8. [PLACEHOLDER] Qual é o papel do enfermeiro do APH, segundo a teoria de Paim, na promoção da autonomia do paciente?</p>
+      <label><input type="radio" name="q8" value="0"> [PLACEHOLDER] Opção A</label><br>
+      <label><input type="radio" name="q8" value="1"> [PLACEHOLDER] Opção B</label><br>
+      <label><input type="radio" name="q8" value="2"> [PLACEHOLDER] Opção C</label><br>
+      <label><input type="radio" name="q8" value="3"> [PLACEHOLDER] Opção D</label>
+    </div>
+
+    <div class="question">
+      <p>9. [PLACEHOLDER] Como a CIPE melhora a comunicação entre equipes de APH e o hospital?</p>
+      <label><input type="radio" name="q9" value="0"> [PLACEHOLDER] Opção A</label><br>
+      <label><input type="radio" name="q9" value="1"> [PLACEHOLDER] Opção B</label><br>
+      <label><input type="radio" name="q9" value="2"> [PLACEHOLDER] Opção C</label><br>
+      <label><input type="radio" name="q9" value="3"> [PLACEHOLDER] Opção D</label>
+    </div>
+
+    <div class="question">
+      <p>10. [PLACEHOLDER] Na teoria de Rosalda Paim, a avaliação do paciente em APH é:</p>
+      <label><input type="radio" name="q10" value="0"> [PLACEHOLDER] Opção A</label><br>
+      <label><input type="radio" name="q10" value="1"> [PLACEHOLDER] Opção B</label><br>
+      <label><input type="radio" name="q10" value="2"> [PLACEHOLDER] Opção C</label><br>
+      <label><input type="radio" name="q10" value="3"> [PLACEHOLDER] Opção D</label>
+    </div>
+
+    <div class="question">
+      <p>11. [PLACEHOLDER] Como a teoria de Rosalda Paim auxilia o enfermeiro a otimizar o uso de recursos no APH?</p>
+      <label><input type="radio" name="q11" value="0"> [PLACEHOLDER] Opção A</label><br>
+      <label><input type="radio" name="q11" value="1"> [PLACEHOLDER] Opção B</label><br>
+      <label><input type="radio" name="q11" value="2"> [PLACEHOLDER] Opção C</label><br>
+      <label><input type="radio" name="q11" value="3"> [PLACEHOLDER] Opção D</label>
+    </div>
+
+    <div class="question">
+      <p>12. [PLACEHOLDER] A flexibilidade da teoria de Rosalda Paim permite sua adaptação a cenários complexos como o APH. Qual a principal característica que facilita essa adaptação?</p>
+      <label><input type="radio" name="q12" value="0"> [PLACEHOLDER] Opção A</label><br>
+      <label><input type="radio" name="q12" value="1"> [PLACEHOLDER] Opção B</label><br>
+      <label><input type="radio" name="q12" value="2"> [PLACEHOLDER] Opção C</label><br>
+      <label><input type="radio" name="q12" value="3"> [PLACEHOLDER] Opção D</label>
+    </div>
+
+    <div class="button-group">
+        <button type="button" id="corrigirBtn" onclick="corrigirQuiz()">Corrigir</button>
+        <button type="button" id="reiniciarBtn" onclick="reiniciarQuiz()">Reiniciar Quiz</button>
+    </div>
+  </form>
+
+  <div id="results"></div>
+
+  <div id="pastResultsContainer">
+    <h2>Resultados Anteriores</h2>
+    <ul id="pastResultsList">
+      <!-- Resultados anteriores serão carregados aqui -->
+    </ul>
+    <div class="button-group">
+        <button type="button" id="clearResultsBtn" onclick="clearPastResults()">Limpar Resultados Anteriores</button>
+    </div>
+  </div>
+
+  <script>
+    // GABARITO - PREENCHA AQUI COM AS RESPOSTAS CORRETAS E SUAS JUSTIFICATIVAS
+    const gabarito = {
+      q1: { correta: "0", justificativa: "[PLACEHOLDER] Justificativa para a Questão 1. Exemplo: A teoria de Rosalda Paim foca em..." },
+      q2: { correta: "1", justificativa: "[PLACEHOLDER] Justificativa para a Questão 2." },
+      q3: { correta: "2", justificativa: "[PLACEHOLDER] Justificativa para a Questão 3." },
+      q4: { correta: "3", justificativa: "[PLACEHOLDER] Justificativa para a Questão 4." },
+      q5: { correta: "0", justificativa: "[PLACEHOLDER] Justificativa para a Questão 5." },
+      q6: { correta: "1", justificativa: "[PLACEHOLDER] Justificativa para a Questão 6." },
+      q7: { correta: "2", justificativa: "[PLACEHOLDER] Justificativa para a Questão 7." },
+      q8: { correta: "3", justificativa: "[PLACEHOLDER] Justificativa para a Questão 8." },
+      q9: { correta: "0", justificativa: "[PLACEHOLDER] Justificativa para a Questão 9." },
+      q10: { correta: "1", justificativa: "[PLACEHOLDER] Justificativa para a Questão 10." },
+      q11: { correta: "2", justificativa: "[PLACEHOLDER] Justificativa para a Questão 11." },
+      q12: { correta: "3", justificativa: "[PLACEHOLDER] Justificativa para a Questão 12." }
+    };
+
+    const timeLimitInSeconds = 300; // Tempo limite: 5 minutos (5 * 60 segundos)
+    let timeLeft = timeLimitInSeconds;
+    let timerInterval;
+    const timerDisplay = document.getElementById('timerDisplay');
+    const timerContainer = document.getElementById('timerContainer');
+    const pastResultsList = document.getElementById('pastResultsList');
+
+    // Função para formatar o tempo em MM:SS
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = seconds % 60;
+      return `${String(minutes).padStart(2, '0')}:${String(remainingSeconds).padStart(2, '0')}`;
+    }
+
+    // Função para iniciar o contador de tempo
+    function startTimer() {
+      timerDisplay.textContent = formatTime(timeLeft);
+
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timerDisplay.textContent = formatTime(timeLeft);
+
+        if (timeLeft <= 30 && !timerContainer.classList.contains('time-critical')) {
+            timerContainer.classList.add('time-critical');
+        } else if (timeLeft > 30 && timerContainer.classList.contains('time-critical')) {
+            timerContainer.classList.remove('time-critical');
+        }
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          timerDisplay.textContent = "00:00 - Tempo Esgotado!";
+          const radioButtons = document.querySelectorAll('#quizForm input[type="radio"]');
+          radioButtons.forEach(radio => radio.disabled = true);
+          corrigirQuiz();
+        }
+      }, 1000);
+    }
+
+    // Função para carregar e exibir resultados anteriores do localStorage
+    function loadPastResults() {
+        pastResultsList.innerHTML = '';
+        const storedResults = JSON.parse(localStorage.getItem('quizPaimCIPE_Results')) || []; // Chave diferente para este quiz
+
+        if (storedResults.length === 0) {
+            pastResultsList.innerHTML = '<li>Nenhum resultado anterior encontrado.</li>';
+            document.getElementById('clearResultsBtn').disabled = true;
+        } else {
+            storedResults.forEach((result, index) => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<span>Quiz #${index + 1}: ${result.score} de 12 acertos</span> <span class="date-time">${new Date(result.timestamp).toLocaleString()}</span>`;
+                pastResultsList.appendChild(listItem);
+            });
+            document.getElementById('clearResultsBtn').disabled = false;
+        }
+    }
+
+    // Função para limpar os resultados anteriores
+    function clearPastResults() {
+        if (confirm('Tem certeza que deseja limpar todos os resultados anteriores para este quiz?')) {
+            localStorage.removeItem('quizPaimCIPE_Results'); // Chave diferente
+            loadPastResults();
+        }
+    }
+
+    window.onload = function() {
+        startTimer();
+        loadPastResults();
+    };
+
+    function corrigirQuiz() {
+      clearInterval(timerInterval);
+      timerContainer.classList.remove('time-critical');
+
+      const form = document.getElementById('quizForm');
+      const results = document.getElementById('results');
+      let score = 0;
+      let feedbackHTML = "<h2>Gabarito e Justificativas</h2>";
+
+      const radioButtons = document.querySelectorAll('#quizForm input[type="radio"]');
+      radioButtons.forEach(radio => radio.disabled = true);
+
+      for (let i = 1; i <= 12; i++) {
+        const qName = "q" + i;
+        const selectedOption = form.querySelector(`input[name="${qName}"]:checked`);
+        const resposta = selectedOption ? selectedOption.value : undefined;
+        
+        const correta = gabarito[qName].correta;
+        const justificativa = gabarito[qName].justificativa;
+
+        feedbackHTML += `<div class="feedback-item">`;
+        if (resposta === undefined) {
+          feedbackHTML += `<p><strong>Questão ${i}:</strong> <span class="incorrect">❌ Não respondida</span><br>`;
+          feedbackHTML += `A alternativa correta é a de valor <strong>${correta}</strong>.<br>${justificativa}</p>`;
+        } else if (resposta === correta) {
+          score++;
+          feedbackHTML += `<p><strong>Questão ${i}:</strong> <span class="correct">✅ Correta</span><br>`;
+          feedbackHTML += `${justificativa}</p>`;
+        } else {
+          feedbackHTML += `<p><strong>Questão ${i}:</strong> <span class="incorrect">❌ Incorreta</span><br>`;
+          feedbackHTML += `Você marcou a alternativa de valor <strong>${resposta}</strong>. Correta: valor <strong>${correta}</strong>.<br>${justificativa}</p>`;
+        }
+        feedbackHTML += `</div>`;
+      }
+
+      feedbackHTML += `<h3>Resultado Final: ${score} de 12 acertos</h3>`;
+      results.innerHTML = feedbackHTML;
+
+      document.getElementById('corrigirBtn').disabled = true;
+      document.getElementById('reiniciarBtn').disabled = false;
+
+      const quizResult = {
+          score: score,
+          timestamp: new Date().toISOString()
+      };
+
+      const storedResults = JSON.parse(localStorage.getItem('quizPaimCIPE_Results')) || []; // Chave diferente
+      storedResults.push(quizResult);
+      localStorage.setItem('quizPaimCIPE_Results', JSON.stringify(storedResults));
+
+      loadPastResults();
+    }
+
+    function reiniciarQuiz() {
+      window.location.reload();
+    }
+  </script>
+</body>
+</html>
